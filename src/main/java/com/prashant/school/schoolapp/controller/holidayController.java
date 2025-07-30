@@ -18,7 +18,7 @@ public class holidayController {
                                   @RequestParam(required = false) Boolean national,
                                   Model model) {
 
-        // If 'display' parameter is not present, default to showing all holidays.
+
         if(festival == null && national == null){
             model.addAttribute("festival", true);
             model.addAttribute("national", true);
