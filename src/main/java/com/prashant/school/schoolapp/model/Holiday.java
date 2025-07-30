@@ -10,7 +10,7 @@ public class Holiday {
     private final Type type;
 
     public enum Type{
-        FESTIVAL, FEDERAL
+        FESTIVAL, NATIONAL
     }
 
     /*
