@@ -15,13 +15,18 @@ public class SecurityConfig {
     SecurityFilterChain defaultSecurityFilter(HttpSecurity http) throws Exception{
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/holiday","/saveMsg","/assets/**").permitAll()
                         .requestMatchers("/","/home").authenticated()
                         .requestMatchers("/contact").authenticated()
                         .anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults());
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll())
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll())
 
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
     @Bean
@@ -29,13 +34,13 @@ public class SecurityConfig {
         UserDetails admin = User.withDefaultPasswordEncoder()
                 .username(("admin"))
                 .password("12345")
-                .roles("user")
+                .roles("ADMIN")
                 .build();
 
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username("user")
                 .password("1234")
-                .roles("admin")
+                .roles("USER")
                 .build();
     return new InMemoryUserDetailsManager(user, admin);
     }
