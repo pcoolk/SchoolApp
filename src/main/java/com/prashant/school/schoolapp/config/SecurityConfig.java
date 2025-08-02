@@ -17,7 +17,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/holiday","/saveMsg","/assets/**").permitAll()
-                        .requestMatchers("/","/home").authenticated()
+                        .requestMatchers("/","/home").permitAll()
                         .requestMatchers("/contact").authenticated()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
