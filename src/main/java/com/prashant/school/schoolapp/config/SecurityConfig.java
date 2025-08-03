@@ -13,18 +13,17 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilter(HttpSecurity http) throws Exception{
-        http.csrf(csrf -> csrf.disable())
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg"))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/dashboard").authenticated()
-                        .requestMatchers("/holiday","/saveMsg","/assets/**").permitAll()
+                        .requestMatchers("/holiday","/logout","/assets/**").permitAll()
                         .requestMatchers("/","/home").permitAll()
                         .requestMatchers("/contact").authenticated()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll())
-                .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll())
+
 
                 .httpBasic(Customizer.withDefaults());
         return http.build();
