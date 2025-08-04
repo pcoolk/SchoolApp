@@ -16,8 +16,8 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg"))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/dashboard").authenticated()
-                        .requestMatchers("/holiday","/logout","/assets/**").permitAll()
-                        .requestMatchers("/","/home").permitAll()
+                        .requestMatchers("/holiday","/logout","/assets/**","/courses").permitAll()
+                        .requestMatchers("/","/home").permitAll() //just " " is not allowed so we use "/"
                         .requestMatchers("/contact").authenticated()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
@@ -35,11 +35,10 @@ public class SecurityConfig {
                 .password("12345")
                 .roles("ADMIN")
                 .build();
-
         UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("1234")
-                .roles("USER")
+                .username("Prashant")
+                .password("pcoolk")
+                .roles("MALIK")
                 .build();
     return new InMemoryUserDetailsManager(user, admin);
     }
