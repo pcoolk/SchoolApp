@@ -1,5 +1,6 @@
 package com.prashant.school.schoolapp.config;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -13,19 +14,21 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilter(HttpSecurity http) throws Exception{
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg"))
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg").ignoringRequestMatchers(PathRequest.toH2Console()))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/holiday","/logout","/assets/**","/courses").permitAll()
                         .requestMatchers("/","/home").permitAll() //just " " is not allowed so we use "/"
                         .requestMatchers("/contact").authenticated()
+                        .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll())
 
 
-                .httpBasic(Customizer.withDefaults());
+                 .httpBasic(Customizer.withDefaults());
+        http.headers(headers -> headers.frameOptions().sameOrigin());
         return http.build();
     }
     @Bean
