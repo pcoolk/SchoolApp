@@ -8,7 +8,8 @@ import lombok.Data;
 
 //@Data is the annotation provided by lombok.
 @Data
-public class Contact {
+public class Contact extends BaseEntity {
+    private int contactId;
 
     //variable names from contact.html
     @NotBlank(message = "enter a name!")
@@ -30,4 +31,5 @@ public class Contact {
     /*all the getter setter and toString methods deleted to use Lombok, which automatically initializes
     them automatically
     */
+    private String status;
 }
