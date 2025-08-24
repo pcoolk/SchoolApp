@@ -20,9 +20,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/displayMessages").hasRole("ADMIN")
+                        .requestMatchers("/closeMsg/**").hasRole("ADMIN")
                         .requestMatchers("/holiday","/logout","/assets/**","/courses").permitAll()
                         .requestMatchers("/","/home").permitAll() //just " " is not allowed so we use "/"
-                        .requestMatchers("/contact").authenticated()
+                        .requestMatchers("/contact").permitAll()
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
