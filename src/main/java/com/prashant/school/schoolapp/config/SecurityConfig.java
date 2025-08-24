@@ -19,6 +19,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg").ignoringRequestMatchers(PathRequest.toH2Console()))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/dashboard").authenticated()
+                        .requestMatchers("/displayMessages").hasRole("ADMIN")
                         .requestMatchers("/holiday","/logout","/assets/**","/courses").permitAll()
                         .requestMatchers("/","/home").permitAll() //just " " is not allowed so we use "/"
                         .requestMatchers("/contact").authenticated()

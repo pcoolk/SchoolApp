@@ -55,7 +55,7 @@ public class contactController {
         contactService.saveMessage(contact);
         return "redirect:/contact";
     }
-
+    @RequestMapping("/displayMessages")
     public ModelAndView displayMessages(Model model){
         List<Contact> contactMsgs = contactService.findMsgsWithOpenStatus();
         ModelAndView modelAndView  = new ModelAndView("messages.html");
