@@ -16,7 +16,7 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilter(HttpSecurity http) throws Exception{
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg").ignoringRequestMatchers(PathRequest.toH2Console()))
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg"))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/displayMessages").hasRole("ADMIN")
@@ -24,7 +24,7 @@ public class SecurityConfig {
                         .requestMatchers("/holiday","/logout","/assets/**","/courses").permitAll()
                         .requestMatchers("/","/home").permitAll() //just " " is not allowed so we use "/"
                         .requestMatchers("/contact").permitAll()
-                        .requestMatchers(PathRequest.toH2Console()).permitAll()
+
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -37,7 +37,7 @@ public class SecurityConfig {
                         .permitAll())
 
                  .httpBasic(Customizer.withDefaults());
-        http.headers(headers -> headers.frameOptions().sameOrigin());
+
         return http.build();
     }
     @Bean
