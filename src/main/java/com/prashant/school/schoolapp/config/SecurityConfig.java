@@ -21,9 +21,10 @@ public class SecurityConfig {
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/displayMessages").hasRole("ADMIN")
                         .requestMatchers("/closeMsg/**").hasRole("ADMIN")
-                        .requestMatchers("/holiday","/logout","/assets/**","/courses").permitAll()
+                        .requestMatchers("/holidays/**","/logout","/assets/**","/courses").permitAll()
                         .requestMatchers("/","/home").permitAll() //just " " is not allowed so we use "/"
                         .requestMatchers("/contact").permitAll()
+                        .requestMatchers("/saveMsg").permitAll()
 
                         .anyRequest().authenticated())
                 .formLogin(form -> form

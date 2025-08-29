@@ -19,6 +19,11 @@ public class holidayController {
     @Autowired
     private HolidaysRepository holidaysRepository;
 
+    @GetMapping("/holidays")
+    public String holidaysRedirect() {
+        return "redirect:/holidays/all";
+    }
+
     @GetMapping("/holidays/{display}")
     public String displayHolidays(@PathVariable String display, Model model){
         if(null!=display && display.equals("all")){

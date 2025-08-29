@@ -1,6 +1,10 @@
-CREATE TABLE IF NOT EXISTS `contact_msg`(
-    `contact_id` INT AUTO_INCREMENT PRIMARY KEY,
-    `name` varchar(100) NOT NULL,
+create database eazyschool;
+
+use eazyschool;
+
+CREATE TABLE IF NOT EXISTS `contact_msg` (
+                                             `contact_id` int AUTO_INCREMENT  PRIMARY KEY,
+                                             `name` varchar(100) NOT NULL,
     `mobile_num` varchar(10) NOT NULL,
     `email` varchar(100) NOT NULL,
     `subject` varchar(100) NOT NULL,
@@ -8,11 +12,11 @@ CREATE TABLE IF NOT EXISTS `contact_msg`(
     `status` varchar(10) NOT NULL,
     `created_at` TIMESTAMP NOT NULL,
     `created_by` varchar(50) NOT NULL,
-    `updated_at` TIMESTAMP  NULL,
+    `updated_at` TIMESTAMP DEFAULT NULL,
     `updated_by` varchar(50) DEFAULT NULL
-);
+    );
 
-CREATE TABLE IF NOT EXISTS `holidays`(
+CREATE TABLE IF NOT EXISTS `holidays` (
     `day` varchar(20) NOT NULL,
     `reason` varchar(100) NOT NULL,
     `type` varchar(20) NOT NULL,
@@ -20,4 +24,4 @@ CREATE TABLE IF NOT EXISTS `holidays`(
     `created_by` varchar(50) NOT NULL,
     `updated_at` TIMESTAMP DEFAULT NULL,
     `updated_by` varchar(50) DEFAULT NULL
-);
+    );
