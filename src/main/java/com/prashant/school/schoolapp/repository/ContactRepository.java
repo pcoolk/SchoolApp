@@ -1,7 +1,7 @@
 package com.prashant.school.schoolapp.repository;
 
 import com.prashant.school.schoolapp.model.Contact;
-import com.prashant.school.schoolapp.rowmapper.ContactRowMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
