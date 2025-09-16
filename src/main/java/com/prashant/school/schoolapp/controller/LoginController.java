@@ -19,14 +19,19 @@ public class LoginController {
 
     @GetMapping("/login")
     public String displayLogin(@RequestParam(value = "error", required = false) String error,
-                               @RequestParam(value = "logout", required = false) String logout, Model model){
+                               @RequestParam(value = "logout", required = false) String logout,
+                               @RequestParam(value = "register", required = false) String register,
+                               Model model){
 
         String errorMessage =  null;
         if(error!=null){
             errorMessage = "Invalid credentials!";
         }
-        if(logout!=null){
+        else if(logout!=null){
             errorMessage = "You have been logged out!";
+        } else if (register!=null) {
+            errorMessage = "You are register. Login with registered credentials.";
+            
         }
         model.addAttribute("errorMessage", errorMessage);
 

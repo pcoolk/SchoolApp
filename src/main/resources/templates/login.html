@@ -13,7 +13,7 @@ Author URL: http://w3layouts.com
     <!-- Google fonts -->
     <link href="//fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- Template CSS Style link -->
-    <link rel="stylesheet" href="assets/css/style-starter.css">
+    <link rel="stylesheet" href="/assets/css/style-starter.css">
 </head>
 
 <body>
@@ -55,7 +55,7 @@ Author URL: http://w3layouts.com
                     </div>
                     <div class="col-md-8 login-center text-start">
                         <button class="btn btn-style btn-style-3 text-left">Log In</button>
-                        <a class="new-user text-right" href="">New User ?</a>
+                        <a th:href="@{/public/register}" class="new-user text-right" >New User ?</a>
                     </div>
                 </form>
             </div>

@@ -16,15 +16,19 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilter(HttpSecurity http) throws Exception{
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg"))
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg").ignoringRequestMatchers("/public/**"))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/displayMessages").hasRole("ADMIN")
                         .requestMatchers("/closeMsg/**").hasRole("ADMIN")
                         .requestMatchers("/holidays/**","/logout","/assets/**","/courses").permitAll()
+
                         .requestMatchers("/","/home").permitAll() //just " " is not allowed so we use "/"
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/contact").permitAll()
                         .requestMatchers("/saveMsg").permitAll()
+
 
                         .anyRequest().authenticated())
                 .formLogin(form -> form
