@@ -23,3 +23,8 @@ VALUES (' Aug 15 ','Independence Day','NATIONAL',CURDATE(),'DBA');
 INSERT INTO `holidays` (`day`,`reason`,`type`,`created_at`, `created_by`)
 VALUES (' Oct 02 ','Gandhi Jayanti','NATIONAL',CURDATE(),'DBA');
 
+INSERT INTO `roles` (`role_name`,`created_at`, `created_by`)
+VALUES ('ADMIN',CURDATE(),'DBA');
+
+INSERT INTO `roles` (`role_name`,`created_at`, `created_by`)
+VALUES ('STUDENT',CURDATE(),'DBA');

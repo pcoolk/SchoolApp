@@ -28,7 +28,7 @@ public class PublicController {
         return "register";
     }
 
-    @RequestMapping(value = "/createuser", method = {RequestMethod.POST})
+    @RequestMapping(value = "/createUser", method = {RequestMethod.POST})
     public String createUser(@Valid @ModelAttribute("person") Person person, Errors errors){
         if(errors.hasErrors()){
             return "register";
