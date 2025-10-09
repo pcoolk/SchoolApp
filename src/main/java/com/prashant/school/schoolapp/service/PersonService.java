@@ -6,21 +6,26 @@ import com.prashant.school.schoolapp.model.Roles;
 import com.prashant.school.schoolapp.repository.PersonRepository;
 import com.prashant.school.schoolapp.repository.RolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PersonService {
 
     @Autowired
-    PersonRepository personRepository;
+    private PersonRepository personRepository;
 
     @Autowired
-    RolesRepository rolesRepository;
+    private RolesRepository rolesRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public boolean createNewUser(Person person){
         boolean isSaved = false;
         Roles Role = rolesRepository.getByRoleName(AppConstants.STUDENT_ROLE);
         person.setRoles(Role);
+        person.setPwd(passwordEncoder.encode(person.getPwd()));
         person = personRepository.save(person);
         if(null!=person && person.getPersonId()>0){
             isSaved = true;
