@@ -66,3 +66,19 @@ CREATE TABLE IF NOT EXISTS `person` (
     FOREIGN KEY (role_id) REFERENCES roles(role_id),
     FOREIGN KEY (address_id) REFERENCES address(address_id)
     );
+
+CREATE TABLE IF NOT EXISTS `class` (
+    `class_id` int not null AUTO_INCREMENT,
+    `name` varchar(100) not null,
+    `created_at` timestamp not null,
+    `created_by` varchar(50) not null,
+    `updated_at` timestamp default null,
+    `updated_by` varchar(100) default null,
+    primary key (class_id)
+);
+
+alter table `person`
+add column `class_id` int null after `address_id`,
+    add constraint `FK_CLASS_CLASS_ID` foreign key (`class_id`)
+references class(`class_id`);
+

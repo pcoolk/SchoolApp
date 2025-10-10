@@ -22,7 +22,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/displayMessages").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/closeMsg/**").hasRole("ADMIN")
+                        .requestMatchers("/updateProfile","/displayProfile").authenticated()
                         .requestMatchers("/holidays/**","/logout","/assets/**","/courses").permitAll()
 
                         .requestMatchers("/","/home").permitAll() //just " " is not allowed so we use "/"

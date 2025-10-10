@@ -28,5 +28,5 @@ public class Address extends BaseEntity{
     private String state;
     @NotBlank(message = "enter your Zipcode")
     @Pattern(regexp = "(^$|[0-9]{6})", message = "enter a valid Pin/Zip code")
-    private int pincode;
+    private String zipCode;
 }
