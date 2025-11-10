@@ -82,3 +82,21 @@ add column `class_id` int null after `address_id`,
     add constraint `FK_CLASS_CLASS_ID` foreign key (`class_id`)
 references class(`class_id`);
 
+create table if not exists `courses` (
+    `course_id` int not null auto_increment,
+    `name` varchar(100) not null,
+    `fees` varchar(10) not null,
+    `created_at` timestamp not null,
+    `created_by` varchar(50) not null,
+    `updated_at` timestamp default null,
+    `updated_by` varchar(100) default null,
+    primary key (`course_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `person_courses` (
+    `person_id` int not null,
+    `course_id` int not null,
+    foreign key (person_id) references person(person_id),
+    foreign key (course_id) references courses(course_id),
+    primary key (`person_id`, `course_id`)
+);
