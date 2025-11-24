@@ -24,7 +24,11 @@ public class DashboardController {
         Person person = personRepository.readByEmail(authentication.getName());
         model.addAttribute("username", person.getName());
         model.addAttribute("roles", authentication.getAuthorities().toString());
-//        throw new RuntimeException("Its been a bad day!");
+        if(null!=person.getEazyClass() && null!=person.getEazyClass().getName()){
+            model.addAttribute("enrolledClass",person.getEazyClass().getName());
+        }
+
+        //        throw new RuntimeException("Its been a bad day!");
         session.setAttribute("loggedInPerson", person);
         return "dashboard";
     }
