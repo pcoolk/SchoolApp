@@ -2,10 +2,14 @@ package com.prashant.school.schoolapp.repository;
 
 import com.prashant.school.schoolapp.model.Contact;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
@@ -22,7 +26,26 @@ public interface ContactRepository extends JpaRepository<Contact, Integer> {
 
     List<Contact> findByStatus(String status);
 
-    Page<Contact> findByStatus(String status, Pageable pageable);
+    @Query(value = "select * from contact_msg c where c.status = :status", nativeQuery = true)
+    Page<Contact> findByStatus(@Param("status") String status, Pageable pageable);
+
+    @Transactional
+    @Modifying
+    @Query("update Contact c set c.status = ?1 where c.contactId=?2")
+    int updateStatusById(String status, int id);
+
+    Page<Contact> findOpenMsgs(@Param("status") String status, Pageable pageable);
+
+    @Transactional
+    @Modifying
+    int updateMsgStatus(String status, int id);
+
+    @Query(nativeQuery = true)
+    Page<Contact> findOpenMsgsNative(@Param("status") String Status, Pageable pageable);
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true)
+    int updateMsgStatusNative(String status, int id);
 
 
 

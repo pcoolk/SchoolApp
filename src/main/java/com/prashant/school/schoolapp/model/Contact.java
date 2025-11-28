@@ -12,6 +12,23 @@ import org.hibernate.annotations.GenericGenerator;
 @Data
 @Entity
 @Table(name = "contact_msg")
+@SqlResultSetMappings({
+        @SqlResultSetMapping(name = "SqlResultSetMapping.count", columns = @ColumnResult(name = "cnt"))
+})
+@NamedQueries({
+        @NamedQuery(name = "Contact.findOpenMsgs",
+        query = "select c from Contact c where c.status = :status"),
+        @NamedQuery(name = "Contact.updateMsgStatus", query = "update Contact c set c.status = ?1 where c.contactId = ?2")
+})
+
+@NamedNativeQueries({
+        @NamedNativeQuery(name = "Contact.findOpenMsgsNative", query = "select * from contact_msg c where c.status = :status", resultClass = Contact.class),
+        @NamedNativeQuery(name = "Contact.findOpenMsgsNative.count", query = "select count(*) as cnt from contact_msg c where c.status = :status",
+                resultSetMapping = "SqlResultSetMapping.count"),
+        @NamedNativeQuery(name = "Contact.updateMsgStatusNative", query = "update contact_msg c set c.status = ?1 where c.contact_id = ?2")
+})
+
+
 public class Contact extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
